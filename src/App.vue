@@ -5,8 +5,7 @@
 </template>
 
 <script setup lang="ts">
-const 
-str = "我爱你祖国"
+const str = '我爱你祖国'
 </script>
 
 <style scoped></style>
