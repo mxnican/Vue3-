@@ -5,6 +5,9 @@ import tseslint from 'typescript-eslint'
 import pluginVue from 'eslint-plugin-vue'
 
 export default defineConfig([
+  {
+    rules:[{"@typescript-eslint/no-explicit-any": ["off"] }]
+  },
   { files: ['**/*.{js,mjs,cjs,ts,vue}'] },
   {
     files: ['**/*.{js,mjs,cjs,ts,vue}'],
