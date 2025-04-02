@@ -1,6 +1,8 @@
 //引入项目中全部全局组件
 import SvgIcon from './SvgIcon/MyIndex.vue'
 import Pagination from './Pagination/MyIndex.vue'
+//引入element-plus提供的全部图标组件（一个对象，里面是200多个 组件名:组件对象）
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 //全局对象
 const allGloablComponent: any = { SvgIcon, Pagination }
@@ -15,5 +17,10 @@ export default {
       //在此注册全局组件
       app.component(key, allGloablComponent[key])
     })
+    //将element-plus提供的Icon图标注册成全局组件
+    //解构出组件名和组件对象，将它们注册成全局组件
+    for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+      app.component(key, component)
+    }
   },
 }

@@ -10,6 +10,12 @@
 import setting from '../../setting';
 </script>
 
+<script lang="ts">
+export default {
+  name:'Logo'
+}
+</script>
+
 <style scoped lang="scss">
 .logo{
   width: 100%;
@@ -17,7 +23,7 @@ import setting from '../../setting';
   color: white;
   display: flex;//图片文字水平排列
   align-items: center;//竖直对齐
-  padding: 20px;
+  padding: 10px;
   img{
     width: 40px;
     height: 40px;

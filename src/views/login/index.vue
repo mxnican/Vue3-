@@ -28,7 +28,7 @@
 import {User,Lock} from '@element-plus/icons-vue'
 //收集账号密码数据
 import { reactive,ref } from 'vue';
-import {useRouter} from 'vue-router'
+import {useRouter,useRoute} from 'vue-router'
 //引入消息提示框，用于登录成功或失败时提示
 import { ElNotification } from 'element-plus';
 //引入获取当前时间的函数
@@ -40,6 +40,8 @@ let useStore=useUserStore()
 let loginForms=ref()
 //获取路由器
 let $router=useRouter()
+//获取路由对象
+let $route=useRoute()
 //定义变量控制按钮加载效果
 let loading=ref(false)
 //收集账号与密码的数据
@@ -60,8 +62,10 @@ const login=async()=>{
     //也可以用.then
     //保证登录成功
     await useStore.userLogin(loginForm)
-    //编程式路由导航跳转到首页
-    $router.push('/')
+    //编程式路由导航跳转到首页(或query参数中的路径)
+    //判断登录时路由路径中是否有query参数，有就往query参数跳，没有就跳到首页
+    let redirect:any=$route.query.redirect
+    $router.push({path:redirect||'/'})
     //登录成功提示信息
     ElNotification({
       type:'success',
