@@ -7,7 +7,7 @@
         <!-- 登录的表单 -->
         <el-form class="login_form" :model="loginForm" :rules="rules" ref="loginForms">
           <h1>Hello</h1>
-          <h2>欢迎来到硅谷甄选</h2>
+          <h2>欢迎来到优品甄选</h2>
           <el-form-item prop="username">
             <el-input :prefix-icon="User" v-model="loginForm.username"></el-input>
           </el-form-item>
@@ -20,66 +20,66 @@
         </el-form>
       </el-col>
     </el-row>
-    
+
   </div>
 </template>
 
 <script setup lang="ts">
-import {User,Lock} from '@element-plus/icons-vue'
+import { User, Lock } from '@element-plus/icons-vue'
 //收集账号密码数据
-import { reactive,ref } from 'vue';
-import {useRouter,useRoute} from 'vue-router'
+import { reactive, ref } from 'vue';
+import { useRouter, useRoute } from 'vue-router'
 //引入消息提示框，用于登录成功或失败时提示
 import { ElNotification } from 'element-plus';
 //引入获取当前时间的函数
 import { getTime } from '../../utils/time';
 //引入用户相关小仓库
 import useUserStore from '../../store/modules/user';
-let useStore=useUserStore()
+let useStore = useUserStore()
 //获取el-form组件
-let loginForms=ref()
+let loginForms = ref()
 //获取路由器
-let $router=useRouter()
+let $router = useRouter()
 //获取路由对象
-let $route=useRoute()
+let $route = useRoute()
 //定义变量控制按钮加载效果
-let loading=ref(false)
+let loading = ref(false)
 //收集账号与密码的数据
 let loginForm = reactive({ username: 'admin', password: '111111' });
 //登录按钮回调
-const login=async()=>{
+const login = async () => {
   //保证全部表单项校验通过再发请求
   //validate返回一个promise对象，只有符合规范，promise才是成功的
   await loginForms.value.validate()
 
   //加载效果：开始加载
-  loading.value=true
+  loading.value = true
   //点击登录按钮后：
   //通知仓库发登录请求
   //请求成功->首页展示数据的地方
   //请求失败->弹出登录失败信息
-  try{
+  try {
     //也可以用.then
     //保证登录成功
     await useStore.userLogin(loginForm)
     //编程式路由导航跳转到首页(或query参数中的路径)
     //判断登录时路由路径中是否有query参数，有就往query参数跳，没有就跳到首页
-    let redirect:any=$route.query.redirect
-    $router.push({path:redirect||'/'})
+    let redirect: any = $route.query.redirect
+    $router.push({ path: redirect || '/' })
     //登录成功提示信息
     ElNotification({
-      type:'success',
-      message:'欢迎回来',
-      title:`${getTime()}好`
+      type: 'success',
+      message: '欢迎回来',
+      title: `${getTime()}好`
     })
-    loading.value=false
-  } catch(error) {
-    loading.value=false
+    loading.value = false
+  } catch (error) {
+    loading.value = false
     //登录失败提示信息
     ElNotification({
-      type:'error',
+      type: 'error',
       //ts断言error类型
-      message:(error as Error).message
+      message: (error as Error).message
     })
   }
 }
@@ -106,7 +106,7 @@ const validatorPassword = (rule: any, value: any, callback: any) => {
 
 
 //定义表单校验需要的配置对象
-const rules={
+const rules = {
   //规则对象属性:
   //required,代表这个字段务必要校验的
   //min:文本长度至少多少位
@@ -128,30 +128,34 @@ const rules={
 </script>
 
 <style scoped lang="scss">
-.login_container{
+.login_container {
   width: 100%;
   height: 100vh;
   background: url('@/assets/images/background.jpg') no-repeat;
-  background-size: cover;//背景图像缩放完全覆盖元素
+  background-size: cover; //背景图像缩放完全覆盖元素
 }
-.login_form{
+
+.login_form {
   position: relative;
   width: 80%;
-  top:30vh;//需要相对定位
+  top: 30vh; //需要相对定位
   background: url("@/assets/images/login_form.png") no-repeat;
   background-size: cover;
   padding: 40px;
-  h1{
+
+  h1 {
     color: white;
     font-size: 40px;
   }
-  h2{
+
+  h2 {
     color: white;
     font-size: 20px;
     margin: 20px 0px;
   }
+
   .login_btn {
-      width: 100%;
+    width: 100%;
   }
 }
 </style>

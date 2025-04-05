@@ -1,3 +1,11 @@
+<!--
+ * @Author: MXN wang1307186@163.com
+ * @Date: 2025-04-01 10:34:34
+ * @LastEditors: MXN wang1307186@163.com
+ * @LastEditTime: 2025-04-02 14:42:25
+ * @FilePath: \project\src\layout\tabbar\setting\index.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
   <!-- 右侧静态 -->
    <el-button size="small" icon="Refresh" circle @click="updateRefsh"></el-button>
@@ -49,11 +57,11 @@ const fullScreen=()=>{
     }
 }
 //退出登录点击的回调
-const logout=()=>{
+const logout=async()=>{
     //第一件事情:需要向服务器发请求[无退出登录接口，不做]
     //第二件事情:仓库当中关于用于相关的数据清空[token|username|avatar]
     //第三件事情:跳转到登录页面
-    userStore.userLogout();
+    await userStore.userLogout();
     $router.push({path:'/login',query:{redirect:$route.path}})
 }
 </script>
